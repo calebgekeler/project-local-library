@@ -1,10 +1,15 @@
-function findAuthorById(authors, id){
-  let result = authors.find((author) => author.id === id)
+function findIdMatch(arrToMatch, id){ //helper function
+  let result = arrToMatch.find((item) => item.id === id);
   return result;
 }
 
+function findAuthorById(authors, id){
+ let result = findIdMatch(authors, id);
+ return result;
+}
+
 function findBookById(books, id){
-  let result = books.find((book) => book.id === id);
+  let result = findIdMatch(books, id);
   return result;
 }
 
@@ -35,12 +40,13 @@ function getBorrowersForBook(book, accounts){
     }
   }
   
-  console.log('FILTERED ACCOUNTS', result)
+  //console.log('FILTERED ACCOUNTS', result)
   
   return result.slice(0, 10);
 }
 
 module.exports = {
+  findIdMatch,
   findAuthorById,
   findBookById,
   partitionBooksByBorrowedStatus,

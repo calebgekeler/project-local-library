@@ -1,5 +1,10 @@
+function findIdMatch(arrToMatch, id){ //helper function
+  let result = arrToMatch.find((item) => item.id === id);
+  return result;
+}
+
 function findAccountById(accounts, userId){
-  var result = accounts.find((account) => account.id === userId);
+  var result = findIdMatch(accounts, userId);
   return result;
 }
 
@@ -10,18 +15,20 @@ function sortAccountsByLastName(accounts){
 
 function numberOfBorrows(account, books){
   var result = 0;
-  for(let i = 0; i<books.length; i++){
-    for(let j = 0; j<books[i].borrows.length; j++)
-      if(account.id === books[i].borrows[j].id){
-        result += 1;
-      }
-  }
-  return result;
+  // for(let i = 0; i<books.length; i++){
+  //   for(let j = 0; j<books[i].borrows.length; j++)
+  //     if(account.id === books[i].borrows[j].id){
+  //       result += 1;
+  //     }
+  // }
+  let borrowId = books.map((book) => book.borrows);
+  console.log('BORROWED ID', borrowId)
+  let mergedArray = borrowId.flat(1);
+  //console.log('FLAT', merge)
+  result = mergedArray.filter((item) => item.id === account.id)
+  console.log(result);
+  return result.length;
 }
-
-
-
-
 
 function getBooksPossessedByAccount(account, books, authors){
   let filteredBooks = books.find(function(bookInstance){
@@ -38,7 +45,7 @@ function getBooksPossessedByAccount(account, books, authors){
   // console.log("FILTERED AUTHORS", filteredAuthors);
   const {id, title, genre, authorID, borrows} = filteredBooks;
   let author = filteredAuthors;
-
+ 
   let result = [{id, title, genre, authorID, author, borrows}]
   //console.log("RESULT", result)
   return result;

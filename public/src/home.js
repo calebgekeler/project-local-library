@@ -65,19 +65,19 @@ function getMostCommonGenres(books){
 }
 //DONE
 function getMostPopularBooks(books){
-  const result = [];
   let sortedBooks = books.sort((bookA, bookB) => bookA.borrows.length < bookB.borrows.length ? 1 : -1)
   //console.log("SORTED BOOKS", sortedBooks)
-  for(let i = 0; i<5; i++){
-    result.push({name: sortedBooks[i].title, count: sortedBooks[i].borrows.length})
-  }
+
+  let result = sortedBooks.reduce((acc, book) =>{
+    acc.push({name: book.title, count: book.borrows.length});
+    return acc;
+   }, []);
   //console.log("PUSH ATTEMPT", result)
   
-  return result;
+  return result.slice(0, 5);
 }
-
+//DONE
 function getMostPopularAuthors(books, authors){
- const result = []
  //console.log(authors);
   for(let book in books){//nested for loops build authors array with count key and value
     for(let author in authors){
@@ -101,14 +101,16 @@ function getMostPopularAuthors(books, authors){
     authorA.count < authorB.count ? 1 : -1});
  authors.sort((authorA, authorB) => authorA.count < authorB.count ? 1 : -1);//sorts twice but the undefined values in the first sort through it off
  //console.log("AUTHORS AFTER SORT", authors);
- for(let i = 0; i<5; i++){//builds the results array
-   result.push({name: `${authors[i].name.first} ${authors[i].name.last}`, count: authors[i].count})
- }
+
+ let result = authors.reduce((acc, author) =>{
+   acc.push({name: `${author.name.first} ${author.name.last}`, count: author.count});
+   return acc;
+  }, []);
  
- //console.log("RESULT", result)
+ // console.log("NEW RESULT", newResult)
 
 
- return result;
+ return result.slice(0, 5);
 }
 
 module.exports = {
