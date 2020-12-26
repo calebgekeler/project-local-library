@@ -15,18 +15,13 @@ function sortAccountsByLastName(accounts){
 
 function numberOfBorrows(account, books){
   var result = 0;
-  // for(let i = 0; i<books.length; i++){
-  //   for(let j = 0; j<books[i].borrows.length; j++)
-  //     if(account.id === books[i].borrows[j].id){
-  //       result += 1;
-  //     }
-  // }
+  
   let borrowId = books.map((book) => book.borrows);
-  console.log('BORROWED ID', borrowId)
+  //console.log('BORROWED ID', borrowId)
   let mergedArray = borrowId.flat(1);
   //console.log('FLAT', merge)
   result = mergedArray.filter((item) => item.id === account.id)
-  console.log(result);
+  //console.log(result);
   return result.length;
 }
 
